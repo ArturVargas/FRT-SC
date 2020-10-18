@@ -55,6 +55,14 @@ contract RFT is ERC20 {
   }
 
   function withdrawIcoProfits() external onlyAdmin {
-    
+    require(block.timestamp > icoEnd, 'El ICO aun no termina');
+    uint daiBalance = dai.balanceOf(address(this));
+    if(daiBalance > 0) {
+      dai.transfer(admin, daiBalance);
+    }
+    uint unsoldShareBalance = icoShareSupply - totalSupply();
+    if(unsoldShareBalance > 0) {
+      _mint(admin, unsoldShareBalance);
+    }
   }
 }
