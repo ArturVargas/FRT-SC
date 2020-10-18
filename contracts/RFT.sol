@@ -40,7 +40,7 @@ contract RFT is ERC20 {
     }
 
   function startIco() external onlyAdmin {
-    nft.trasferFrom(msg.sender, address(this), nftId);
+    nft.transferFrom(msg.sender, address(this), nftId);
     icoEnd = block.timestamp + 7 * 86400;
   }
 
@@ -49,7 +49,7 @@ contract RFT is ERC20 {
     require(block.timestamp <= icoEnd, 'El ICO ha finalizado');
     require(totalSupply() + shareAmount <= icoShareSupply, 'No hay suficientes tokens');
     uint daiAmount = shareAmount * icoSharePrice;
-    dai.trasferFrom(msg.sender, address(this), daiAmount);
+    dai.transferFrom(msg.sender, address(this), daiAmount);
     // _mint from erc20.sol
     _mint(msg.sender, shareAmount);
   }
